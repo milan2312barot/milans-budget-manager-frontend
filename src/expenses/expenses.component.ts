@@ -3,6 +3,7 @@ import { HttpClient, HttpClientModule } from '@angular/common/http';
 import { CurrencyPipe } from '@angular/common';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
+import { AddExpensesComponent } from "../add-expenses/add-expenses.component";
 
 @Component({
   selector: 'app-expenses',
@@ -12,8 +13,9 @@ import { FormsModule } from '@angular/forms';
     HttpClientModule,
     CurrencyPipe,
     CommonModule,
-    FormsModule
-  ],
+    FormsModule,
+    AddExpensesComponent
+],
   styleUrls: ['./expenses.component.css']
 })
 export class ExpensesComponent {
@@ -71,43 +73,4 @@ export class ExpensesComponent {
     });
   }
 
-  addExpense() {
-    // Generate a new ID for the expense
-    const newId = this.expenses.length > 0 ? Math.max(...this.expenses.map(e => e.id)) + 1 : 1;
-
-    // Add the new expense to the array
-    const expense = {
-      id: newId,
-      ...this.newExpense
-    };
-
-    this.expenses.push(expense);
-
-    // Reset the form
-    this.newExpense = {
-      date: '',
-      description: '',
-      category: '',
-      amount: null
-    };
-
-    // Optionally, save the updated expenses to the JSON file (requires backend support)
-    // this.saveExpensesToJson();
-  }
-
-  // Uncomment this method if you have backend support to save the updated JSON
-  // saveExpensesToJson() {
-  //   this.http.post('assets/expenses.json', this.expenses).subscribe(() => {
-  //     console.log('Expenses saved successfully!');
-  //   });
-  // }
-
-  isFormValid(): boolean {
-    return (
-      !!this.newExpense.date &&
-      !!this.newExpense.description &&
-      !!this.newExpense.category &&
-      this.newExpense.amount != null
-    );
-  }
 }

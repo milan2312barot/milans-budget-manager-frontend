@@ -3,7 +3,7 @@ import { HttpClient, HttpClientModule } from '@angular/common/http';
 import { CurrencyPipe } from '@angular/common';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
-import { AddExpensesComponent } from "../add-expenses/add-expenses.component";
+import { AddExpensesComponent } from "./add-expenses/add-expenses.component";
 
 @Component({
   selector: 'app-expenses',

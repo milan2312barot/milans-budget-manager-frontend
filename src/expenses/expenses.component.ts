@@ -71,6 +71,7 @@ export class ExpensesComponent {
     });
   }
 
+  
   addExpense() {
     // Generate a new ID for the expense
     const newId = this.expenses.length > 0 ? Math.max(...this.expenses.map(e => e.id)) + 1 : 1;

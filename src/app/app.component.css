@@ -1,0 +1,10 @@
+h1 {
+  text-align: center;
+  font-family: 'Arial', sans-serif; /* Use a clean, professional font */
+  font-size: 2.5rem; /* Increase the font size */
+  font-weight: bold; /* Make the text bold */
+  color: #333; /* Use a neutral, professional color */
+  margin-top: 20px; /* Add some spacing at the top */
+  text-transform: uppercase; /* Make the text uppercase */
+  letter-spacing: 2px; /* Add some spacing between letters */
+}

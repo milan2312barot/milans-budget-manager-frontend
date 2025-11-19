@@ -4,15 +4,16 @@
 <div style="margin-bottom: 20px;">
   <label>
     Date:
-    <input type="date" [(ngModel)]="newExpense.date"/>
+    <input type="date" [(ngModel)]="newExpense.date" required />
   </label>
   <label>
     Description:
-    <input type="text" [(ngModel)]="newExpense.description"/>
+    <input type="text" [(ngModel)]="newExpense.description" required />
   </label>
   <label>
     Category:
-    <select [(ngModel)]="newExpense.category">
+    <select [(ngModel)]="newExpense.category" required>
+      <option value="" disabled>Select a category</option>
       <option value="Food">Food</option>
       <option value="Utility">Utility</option>
       <option value="Entertainment">Entertainment</option>
@@ -22,9 +23,9 @@
   </label>
   <label>
     Amount:
-    <input type="number" [(ngModel)]="newExpense.amount"/>
+    <input type="number" [(ngModel)]="newExpense.amount" required />
   </label>
-  <button (click)="addExpense()">Add Expense</button>
+  <button (click)="addExpense()" [disabled]="!isFormValid()">Add Expense</button>
 </div>
 
 <!-- Table to display expenses -->

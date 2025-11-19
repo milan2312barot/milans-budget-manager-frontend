@@ -101,4 +101,13 @@ export class ExpensesComponent {
   //     console.log('Expenses saved successfully!');
   //   });
   // }
+
+  isFormValid(): boolean {
+    return (
+      !!this.newExpense.date &&
+      !!this.newExpense.description &&
+      !!this.newExpense.category &&
+      this.newExpense.amount != null
+    );
+  }
 }

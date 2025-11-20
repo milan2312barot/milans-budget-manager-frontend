@@ -3,14 +3,16 @@ import { Component } from '@angular/core';
 import { CurrencyPipe } from '@angular/common';
 import { CommonModule } from '@angular/common';
 import { sortByColumn, SortState } from '../../shared/sorting-utils';
+import { CategoryEnumPipe } from "../../pipes/category-enum.pipe";
 
 @Component({
   selector: 'app-display-expenses',
   standalone: true,
   imports: [
     CurrencyPipe,
-    CommonModule
-  ],
+    CommonModule,
+    CategoryEnumPipe
+],
   templateUrl: './display-expenses.component.html',
   styleUrl: './display-expenses.component.css'
 })
@@ -23,10 +25,15 @@ export class DisplayExpensesComponent {
   constructor(private http: HttpClient) { }
 
   ngOnInit() {
-    // Fetch the expenses data from the JSON file
-    this.http.get<any[]>('assets/expenses.json').subscribe(data => {
-      this.expenses = data;
-    });
+    // Fetch the expenses data from the backend API
+    this.http.get<any[]>('https://localhost:7077/api/Expense').subscribe(
+      data => {
+        this.expenses = data;
+      },
+      error => {
+        console.error('Error fetching expenses:', error);
+      }
+    );
   }
 
   sortByColumn(column: string) {

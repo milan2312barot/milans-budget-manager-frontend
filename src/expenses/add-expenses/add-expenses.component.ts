@@ -1,5 +1,6 @@
 import { Component, EventEmitter, Input, Output } from '@angular/core';
 import { FormsModule } from '@angular/forms';
+import { ExpenseCategory } from '../../shared/expense-category.enum';
 
 @Component({
   selector: 'app-add-expenses',
@@ -19,6 +20,8 @@ export class AddExpensesComponent {
     category: '',
     amount: null
   };
+
+  categories = Object.values(ExpenseCategory); // Use the enum values for the dropdown
 
    isFormValid(): boolean {
     return (
@@ -40,6 +43,9 @@ export class AddExpensesComponent {
     };
 
     this.expenses.push(expense);
+
+    // Emit the updated expenses array
+    this.expensesChange.emit(this.expenses);
 
     // Reset the form
     this.newExpense = {

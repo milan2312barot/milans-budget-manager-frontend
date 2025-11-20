@@ -12,7 +12,6 @@ import { DisplayExpensesComponent } from './display-expenses/display-expenses.co
   standalone: true,
   imports: [
     HttpClientModule,
-    CurrencyPipe,
     CommonModule,
     FormsModule,
     AddExpensesComponent,

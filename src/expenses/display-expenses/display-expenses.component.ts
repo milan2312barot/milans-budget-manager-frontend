@@ -26,9 +26,13 @@ export class DisplayExpensesComponent {
 
   ngOnInit() {
     // Fetch the expenses data from the backend API
-    this.http.get<any[]>('https://localhost:7077/api/Expense').subscribe(
-      data => {
-        this.expenses = data;
+    this.http.get<any>('https://localhost:7246/api/Expense').subscribe(
+      response => {
+        if (response && Array.isArray(response)) {
+          this.expenses = response;
+        } else {
+          console.error('Unexpected response format:', response);
+        }
       },
       error => {
         console.error('Error fetching expenses:', error);

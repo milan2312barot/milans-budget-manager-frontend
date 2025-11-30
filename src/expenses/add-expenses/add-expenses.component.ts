@@ -1,11 +1,14 @@
 import { Component, EventEmitter, Input, Output } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { ExpenseCategory } from '../../shared/expense-category.enum';
+import { HttpClient } from '@angular/common/http';
+import { v4 as uuidv4 } from 'uuid';
+import { NgFor } from '@angular/common';
 
 @Component({
   selector: 'app-add-expenses',
   standalone: true,
-  imports: [FormsModule],
+  imports: [FormsModule, NgFor],
   templateUrl: './add-expenses.component.html',
   styleUrl: './add-expenses.component.css'
 })
@@ -21,7 +24,13 @@ export class AddExpensesComponent {
     amount: null
   };
 
-  categories = Object.values(ExpenseCategory); // Use the enum values for the dropdown
+  constructor(private http: HttpClient) {
+    
+  }
+
+   get categories(): string[] {
+    return Object.values(ExpenseCategory).filter(value => typeof value === 'string') as string[];
+  }
 
    isFormValid(): boolean {
     return (
@@ -33,26 +42,41 @@ export class AddExpensesComponent {
   }
 
   addExpense() {
-    // Generate a new ID for the expense
-    const newId = this.expenses.length > 0 ? Math.max(...this.expenses.map(e => e.id)) + 1 : 1;
+    // Generate a new GUID for the expense
+    const newId = uuidv4();
 
-    // Add the new expense to the array
+    // Create the expense object
     const expense = {
       id: newId,
       ...this.newExpense
     };
 
-    this.expenses.push(expense);
+    const categoryValue: number = Object.entries(ExpenseCategory).find(
+      ([key, value]) => value === this.newExpense.category
+    )?.[0] as unknown as number || 0;
 
-    // Emit the updated expenses array
-    this.expensesChange.emit(this.expenses);
+    // Make the HTTP POST request to add the expense
+    this.http.post('https://localhost:7246/api/Expense', expense).subscribe(
+      response => {
+        console.log('Expense added successfully:', response);
 
-    // Reset the form
-    this.newExpense = {
-      date: '',
-      description: '',
-      category: '',
-      amount: null
-    };
+        // Add the new expense to the array
+        this.expenses.push(expense);
+
+        // Emit the updated expenses array
+        this.expensesChange.emit(this.expenses);
+
+        // Reset the form
+        this.newExpense = {
+          date: '',
+          description: '',
+          category: '',
+          amount: null
+        };
+      },
+      error => {
+        console.error('Error adding expense:', error);
+      }
+    );
   }
 }

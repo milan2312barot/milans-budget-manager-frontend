@@ -1,5 +1,5 @@
 {
-  "name": "milans-budget-manager",
+  "name": "milans-budget-manager-frontend",
   "version": "0.0.0",
   "scripts": {
     "ng": "ng",

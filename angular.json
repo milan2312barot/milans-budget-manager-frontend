@@ -13,7 +13,7 @@
         "build": {
           "builder": "@angular-devkit/build-angular:application",
           "options": {
-            "outputPath": "dist/milans-budget-manager",
+            "outputPath": "dist/milans-budget-manager-frontend",
             "index": "src/index.html",
             "browser": "src/main.ts",
             "polyfills": [

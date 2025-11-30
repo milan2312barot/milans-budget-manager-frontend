@@ -1,0 +1,46 @@
+<!-- Table to display expenses -->
+<table border="1" style="width: 100%; border-collapse: collapse; text-align: left; margin-top: 10px;">
+    <thead>
+        <tr>
+            <th style="padding: 8px;">
+                ID
+                <span (click)="sortByColumn('id')" style="cursor: pointer;">
+                    {{ sortColumn === 'id' ? (sortState === 'asc' ? '▲' : '▼') : '↕' }}
+                </span>
+            </th>
+            <th style="padding: 8px;">
+                Date
+                <span (click)="sortByColumn('date')" style="cursor: pointer;">
+                    {{ sortColumn === 'date' ? (sortState === 'asc' ? '▲' : '▼') : '↕' }}
+                </span>
+            </th>
+            <th style="padding: 8px;">
+                Description
+                <span (click)="sortByColumn('description')" style="cursor: pointer;">
+                    {{ sortColumn === 'description' ? (sortState === 'asc' ? '▲' : '▼') : '↕' }}
+                </span>
+            </th>
+            <th style="padding: 8px;">
+                Category
+                <span (click)="sortByColumn('category')" style="cursor: pointer;">
+                    {{ sortColumn === 'category' ? (sortState === 'asc' ? '▲' : '▼') : '↕' }}
+                </span>
+            </th>
+            <th style="padding: 8px;">
+                Amount
+                <span (click)="sortByColumn('amount')" style="cursor: pointer;">
+                    {{ sortColumn === 'amount' ? (sortState === 'asc' ? '▲' : '▼') : '↕' }}
+                </span>
+            </th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr *ngFor="let expense of expenses">
+            <td style="padding: 8px;">{{ expense.id }}</td>
+            <td style="padding: 8px;">{{ expense.date | date:'yyyy-MM-dd' }}</td>
+            <td style="padding: 8px;">{{ expense.description }}</td>
+            <td style="padding: 8px;">{{ expense.category }}</td>
+            <td style="padding: 8px;">{{ expense.amount | currency:'INR' }}</td>
+        </tr>
+    </tbody>
+</table>

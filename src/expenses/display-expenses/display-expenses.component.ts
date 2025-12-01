@@ -5,6 +5,7 @@ import { CommonModule } from '@angular/common';
 import { sortByColumn, SortState } from '../../shared/sorting-utils';
 import { ExpensesService } from '../../shared/expenses.service';
 import { Subscription } from 'rxjs';
+import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 
 @Component({
   selector: 'app-display-expenses',
@@ -12,7 +13,8 @@ import { Subscription } from 'rxjs';
   imports: [
     CurrencyPipe,
     CommonModule,
-    DatePipe // Added DatePipe for date formatting
+    DatePipe, // Added DatePipe for date formatting
+    MatProgressSpinnerModule // Added Material spinner module
 ],
   templateUrl: './display-expenses.component.html',
   styleUrl: './display-expenses.component.css',
@@ -23,6 +25,7 @@ export class DisplayExpensesComponent {
   sortState: SortState = 'none'; // Use the shared SortState type
   sortColumn: string = ''; // Track the column being sorted
   private expensesSub: Subscription | null = null; // Initialize as null
+  isLoading: boolean = true; // Property to track loading state
 
   constructor(private expensesService: ExpensesService, private datePipe: DatePipe) {}
 
@@ -38,6 +41,7 @@ export class DisplayExpensesComponent {
   }
 
   fetchExpenses() {
+    this.isLoading = true; // Set loading to true before fetching data
     this.expensesService.getExpenses().subscribe(
       (response) => {
         if (response && Array.isArray(response)) {
@@ -46,9 +50,11 @@ export class DisplayExpensesComponent {
         } else {
           console.error('Unexpected response format:', response);
         }
+        this.isLoading = false; // Set loading to false after data is loaded
       },
       (error) => {
         console.error('Error fetching expenses:', error);
+        this.isLoading = false; // Set loading to false in case of error
       }
     );
   }

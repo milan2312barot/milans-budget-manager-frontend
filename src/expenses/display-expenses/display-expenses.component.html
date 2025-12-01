@@ -1,5 +1,9 @@
+<div *ngIf="isLoading" style="position: fixed; top: 50%; left: 50%; transform: translate(-50%, -50%);">
+  <mat-progress-spinner mode="indeterminate"></mat-progress-spinner>
+</div>
+
 <!-- Table to display expenses -->
-<table border="1" style="width: 100%; border-collapse: collapse; text-align: left; margin-top: 10px;">
+<table *ngIf="!isLoading" border="1" style="width: 100%; border-collapse: collapse; text-align: left; margin-top: 10px;">
     <thead>
         <tr>
             <th style="padding: 8px;">

@@ -10,8 +10,7 @@ import { CategoryEnumPipe } from "../../pipes/category-enum.pipe";
   standalone: true,
   imports: [
     CurrencyPipe,
-    CommonModule,
-    CategoryEnumPipe
+    CommonModule
 ],
   templateUrl: './display-expenses.component.html',
   styleUrl: './display-expenses.component.css'

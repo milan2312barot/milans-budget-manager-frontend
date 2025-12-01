@@ -26,6 +26,7 @@ export class DisplayExpensesComponent {
   sortColumn: string = ''; // Track the column being sorted
   private expensesSub: Subscription | null = null; // Initialize as null
   isLoading: boolean = true; // Property to track loading state
+  errorMessage: string = ''; // Property to store error messages
 
   constructor(private expensesService: ExpensesService, private datePipe: DatePipe) {}
 
@@ -42,6 +43,7 @@ export class DisplayExpensesComponent {
 
   fetchExpenses() {
     this.isLoading = true; // Set loading to true before fetching data
+    this.errorMessage = ''; // Clear any previous error messages
     this.expensesService.getExpenses().subscribe(
       (response) => {
         if (response && Array.isArray(response)) {
@@ -49,11 +51,13 @@ export class DisplayExpensesComponent {
           this.expenses = response.sort((a, b) => new Date(b.date).getTime() - new Date(a.date).getTime());
         } else {
           console.error('Unexpected response format:', response);
+          this.errorMessage = 'Failed to load expenses. Please try again later.';
         }
         this.isLoading = false; // Set loading to false after data is loaded
       },
       (error) => {
         console.error('Error fetching expenses:', error);
+        this.errorMessage = 'Unable to fetch expenses. Please check your connection and try again.';
         this.isLoading = false; // Set loading to false in case of error
       }
     );

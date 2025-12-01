@@ -2,8 +2,12 @@
   <mat-progress-spinner mode="indeterminate"></mat-progress-spinner>
 </div>
 
+<div *ngIf="errorMessage" class="error-message">
+  {{ errorMessage }}
+</div>
+
 <!-- Table to display expenses -->
-<table *ngIf="!isLoading" border="1" style="width: 100%; border-collapse: collapse; text-align: left; margin-top: 10px;">
+<table *ngIf="!isLoading && !errorMessage" border="1" style="width: 100%; border-collapse: collapse; text-align: left; margin-top: 10px;">
     <thead>
         <tr>
             <th style="padding: 8px;">

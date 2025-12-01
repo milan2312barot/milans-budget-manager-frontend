@@ -1,3 +1,50 @@
+body {
+  font-family: 'Arial', sans-serif; /* Clean, professional font */
+  margin: 0;
+  padding: 0;
+  background-color: #f4f4f9; /* Light gray background for elegance */
+  color: #333; /* Neutral text color */
+}
+
+header {
+  background-color: #1976d2; /* Professional blue header */
+  color: white;
+  padding: 20px 0;
+  text-align: center;
+  font-size: 2.5rem;
+  font-weight: bold;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); /* Subtle shadow */
+}
+
+main {
+  padding: 20px;
+  max-width: 1200px;
+  margin: 0 auto;
+  background: white;
+  border-radius: 8px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Subtle shadow for the main content */
+}
+
+footer {
+  background-color: #1976d2;
+  color: white;
+  text-align: center;
+  padding: 10px 0;
+  position: fixed;
+  bottom: 0;
+  width: 100%;
+  box-shadow: 0 -2px 4px rgba(0, 0, 0, 0.1); /* Subtle shadow */
+}
+
+a {
+  color: #1976d2;
+  text-decoration: none;
+}
+
+a:hover {
+  text-decoration: underline;
+}
+
 h1 {
   text-align: center;
   font-family: 'Arial', sans-serif; /* Use a clean, professional font */

@@ -6,6 +6,10 @@ h1 {
   margin-bottom: 20px;
 }
 
+h1[mat-dialog-title] {
+  text-align: center;
+}
+
 div[mat-dialog-content] {
   font-size: 16px;
   color: #555;
@@ -14,7 +18,7 @@ div[mat-dialog-content] {
 
 div[mat-dialog-actions] {
   display: flex;
-  justify-content: flex-end;
+  justify-content: center;
   gap: 10px;
   margin-top: 10px;
 }
@@ -44,4 +48,15 @@ button[mat-button][color="warn"] {
 
 button[mat-button][color="warn"]:hover {
   background-color: #b71c1c;
+}
+
+.mat-dialog-container {
+  max-width: 1000px;
+  max-height: 400px;
+  padding: 20px;
+  box-sizing: border-box;
+}
+
+.dialog {
+    margin: 30px;
 }

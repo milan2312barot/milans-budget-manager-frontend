@@ -13,8 +13,9 @@
 .custom-dialog-container {
   margin: 20px;
   border-radius: 8px;
-  overflow: visible !important;
-  max-width: 500px;
+  overflow: unset !important;
+  max-width: 1000px;
+  max-height: 400px;
   word-wrap: break-word;
   padding: 20px;
   box-sizing: border-box;

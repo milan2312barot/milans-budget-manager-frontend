@@ -82,6 +82,10 @@ export class DisplayExpensesComponent {
     this.expenses = this.expenses.filter(expense => expense.id !== expenseId);
   }
 
+  getTotalExpenses(): number {
+    return this.expenses.reduce((total, expense) => total + (expense.amount || 0), 0);
+  }
+
   ngOnDestroy() {
     if (this.expensesSub) {
       this.expensesSub.unsubscribe();

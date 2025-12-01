@@ -68,3 +68,17 @@ th span {
   width: 80%; /* Restrict width */
   box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); /* Subtle shadow */
 }
+
+/* Adjusted styling for total expenses section to align with website's color scheme */
+.total-expenses {
+  font-size: 2rem; /* Slightly smaller but elegant size */
+  font-weight: 600; /* Semi-bold for a professional look */
+  color: #1565c0; /* Blue color matching the website's theme */
+  text-align: center; /* Center align the text */
+  margin-top: 20px; /* Add spacing above */
+  padding: 10px; /* Add padding for better spacing */
+  border: 2px solid #bbdefb; /* Subtle blue border */
+  border-radius: 8px; /* Rounded corners for elegance */
+  background-color: #e3f2fd; /* Light blue background for emphasis */
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); /* Subtle shadow for depth */
+}

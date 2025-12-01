@@ -56,3 +56,7 @@
         </tr>
     </tbody>
 </table>
+
+<div *ngIf="!isLoading && !errorMessage" class="total-expenses">
+  Total Expenses: {{ getTotalExpenses() | currency:'INR' }}
+</div>

@@ -33,7 +33,10 @@ export class AddExpensesComponent {
   successMessage: string = ''; // Added successMessage property
 
   constructor(private http: HttpClient, private expensesService: ExpensesService) {
-    
+    const indianTime = new Date(new Date().toLocaleString('en-US', { timeZone: 'Asia/Kolkata' }));
+    this.newExpense.date = indianTime.getFullYear() + '-' +
+                          String(indianTime.getMonth() + 1).padStart(2, '0') + '-' +
+                          String(indianTime.getDate()).padStart(2, '0');
   }
 
    get categories(): string[] {

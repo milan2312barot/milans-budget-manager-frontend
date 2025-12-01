@@ -9,3 +9,13 @@
 .delete-button:hover {
   color: #b71c1c; /* Darker red on hover */
 }
+
+.custom-dialog-container {
+  margin: 20px;
+  border-radius: 8px;
+  overflow: visible !important;
+  max-width: 500px;
+  word-wrap: break-word;
+  padding: 20px;
+  box-sizing: border-box;
+}

@@ -6,6 +6,7 @@ import { Subject, tap } from 'rxjs';
   providedIn: 'root',
 })
 export class ExpensesService {
+  private readonly baseUrl = 'https://localhost:7246/api/Expense';
   private expensesUpdated = new Subject<void>();
 
   constructor(private http: HttpClient) {}
@@ -17,12 +18,21 @@ export class ExpensesService {
 
   // Fetch expenses
   getExpenses() {
-    return this.http.get<any[]>('https://localhost:7246/api/Expense');
+    return this.http.get<any[]>(`${this.baseUrl}`);
   }
 
   // Add a new expense
   addExpense(expense: any) {
-    return this.http.post('https://localhost:7246/api/Expense', expense).pipe(
+    return this.http.post(`${this.baseUrl}`, expense).pipe(
+      tap(() => {
+        this.expensesUpdated.next(); // Notify listeners on success
+      })
+    );
+  }
+
+  // Delete an expense
+  deleteExpense(expenseId: number) {
+    return this.http.delete(`${this.baseUrl}/${expenseId}`).pipe(
       tap(() => {
         this.expensesUpdated.next(); // Notify listeners on success
       })

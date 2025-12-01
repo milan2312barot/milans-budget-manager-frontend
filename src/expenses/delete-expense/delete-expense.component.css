@@ -1,0 +1,11 @@
+.delete-button {
+  background-color: transparent;
+  border: none;
+  cursor: pointer;
+  color: #d32f2f; /* Red color for delete icon */
+  font-size: 18px;
+}
+
+.delete-button:hover {
+  color: #b71c1c; /* Darker red on hover */
+}

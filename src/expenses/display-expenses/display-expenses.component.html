@@ -40,6 +40,7 @@
                     {{ sortColumn === 'amount' ? (sortState === 'asc' ? '▲' : '▼') : '↕' }}
                 </span>
             </th>
+            <th style="padding: 8px;">Actions</th>
         </tr>
     </thead>
     <tbody>
@@ -49,6 +50,9 @@
             <td style="padding: 8px;">{{ expense.description }}</td>
             <td style="padding: 8px;">{{ expense.category }}</td>
             <td style="padding: 8px;">{{ expense.amount | currency:'INR' }}</td>
+            <td style="padding: 8px;">
+              <app-delete-expense (expenseDeleted)="onExpenseDeleted($event)" [expenseId] ="expense.id"></app-delete-expense>
+            </td>
         </tr>
     </tbody>
 </table>

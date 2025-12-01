@@ -6,6 +6,7 @@ import { sortByColumn, SortState } from '../../shared/sorting-utils';
 import { ExpensesService } from '../../shared/expenses.service';
 import { Subscription } from 'rxjs';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
+import { DeleteExpenseComponent } from '../delete-expense/delete-expense.component';
 
 @Component({
   selector: 'app-display-expenses',
@@ -14,7 +15,8 @@ import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
     CurrencyPipe,
     CommonModule,
     DatePipe, // Added DatePipe for date formatting
-    MatProgressSpinnerModule // Added Material spinner module
+    MatProgressSpinnerModule, // Added Material spinner module
+    DeleteExpenseComponent
 ],
   templateUrl: './display-expenses.component.html',
   styleUrl: './display-expenses.component.css',
@@ -74,6 +76,10 @@ export class DisplayExpensesComponent {
     }
 
     this.expenses = sortByColumn(this.expenses, column, this.sortState);
+  }
+
+  onExpenseDeleted(expenseId: number): void {
+    this.expenses = this.expenses.filter(expense => expense.id !== expenseId);
   }
 
   ngOnDestroy() {

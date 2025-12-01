@@ -1,39 +1,53 @@
 import { HttpClient } from '@angular/common/http';
 import { Component } from '@angular/core';
-import { CurrencyPipe } from '@angular/common';
+import { CurrencyPipe, DatePipe } from '@angular/common';
 import { CommonModule } from '@angular/common';
 import { sortByColumn, SortState } from '../../shared/sorting-utils';
-import { CategoryEnumPipe } from "../../pipes/category-enum.pipe";
+import { ExpensesService } from '../../shared/expenses.service';
+import { Subscription } from 'rxjs';
 
 @Component({
   selector: 'app-display-expenses',
   standalone: true,
   imports: [
     CurrencyPipe,
-    CommonModule
+    CommonModule,
+    DatePipe // Added DatePipe for date formatting
 ],
   templateUrl: './display-expenses.component.html',
-  styleUrl: './display-expenses.component.css'
+  styleUrl: './display-expenses.component.css',
+  providers: [DatePipe] // Added DatePipe to the providers array
 })
 export class DisplayExpensesComponent {
-
   expenses: any[] = []; // Initialize an empty array for expenses
   sortState: SortState = 'none'; // Use the shared SortState type
   sortColumn: string = ''; // Track the column being sorted
+  private expensesSub: Subscription | null = null; // Initialize as null
 
-  constructor(private http: HttpClient) { }
+  constructor(private expensesService: ExpensesService, private datePipe: DatePipe) {}
 
   ngOnInit() {
-    // Fetch the expenses data from the backend API
-    this.http.get<any>('https://localhost:7246/api/Expense').subscribe(
-      response => {
+    this.sortColumn = 'date'; // Set initial sort column to 'date'
+    this.sortState = 'desc'; // Set initial sort state to 'desc'
+    this.fetchExpenses();
+
+    // Subscribe to updates
+    this.expensesSub = this.expensesService.getExpensesUpdatedListener().subscribe(() => {
+      this.fetchExpenses();
+    });
+  }
+
+  fetchExpenses() {
+    this.expensesService.getExpenses().subscribe(
+      (response) => {
         if (response && Array.isArray(response)) {
-          this.expenses = response;
+          // Sort expenses by date in descending order after fetching
+          this.expenses = response.sort((a, b) => new Date(b.date).getTime() - new Date(a.date).getTime());
         } else {
           console.error('Unexpected response format:', response);
         }
       },
-      error => {
+      (error) => {
         console.error('Error fetching expenses:', error);
       }
     );
@@ -50,5 +64,11 @@ export class DisplayExpensesComponent {
     }
 
     this.expenses = sortByColumn(this.expenses, column, this.sortState);
+  }
+
+  ngOnDestroy() {
+    if (this.expensesSub) {
+      this.expensesSub.unsubscribe();
+    }
   }
 }

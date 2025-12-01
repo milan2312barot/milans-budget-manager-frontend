@@ -4,11 +4,17 @@ import { ExpenseCategory } from '../../shared/expense-category.enum';
 import { HttpClient } from '@angular/common/http';
 import { v4 as uuidv4 } from 'uuid';
 import { NgFor } from '@angular/common';
+import { ExpensesService } from '../../shared/expenses.service';
+import { CommonModule } from '@angular/common';
 
 @Component({
   selector: 'app-add-expenses',
   standalone: true,
-  imports: [FormsModule, NgFor],
+  imports: [
+    FormsModule,
+    NgFor,
+    CommonModule // Added CommonModule for *ngIf
+  ],
   templateUrl: './add-expenses.component.html',
   styleUrl: './add-expenses.component.css'
 })
@@ -24,7 +30,9 @@ export class AddExpensesComponent {
     amount: null
   };
 
-  constructor(private http: HttpClient) {
+  successMessage: string = ''; // Added successMessage property
+
+  constructor(private http: HttpClient, private expensesService: ExpensesService) {
     
   }
 
@@ -55,16 +63,10 @@ export class AddExpensesComponent {
       ([key, value]) => value === this.newExpense.category
     )?.[0] as unknown as number || 0;
 
-    // Make the HTTP POST request to add the expense
-    this.http.post('https://localhost:7246/api/Expense', expense).subscribe(
-      response => {
-        console.log('Expense added successfully:', response);
-
-        // Add the new expense to the array
-        this.expenses.push(expense);
-
-        // Emit the updated expenses array
-        this.expensesChange.emit(this.expenses);
+    // Use the shared service to add the expense
+    this.expensesService.addExpense(expense).subscribe(
+      () => {
+        console.log('Expense added successfully');
 
         // Reset the form
         this.newExpense = {
@@ -73,8 +75,14 @@ export class AddExpensesComponent {
           category: '',
           amount: null
         };
+
+        // Display success message for 3 seconds
+        this.successMessage = 'Item added successfully!!!';
+        setTimeout(() => {
+          this.successMessage = '';
+        }, 3000);
       },
-      error => {
+      (error) => {
         console.error('Error adding expense:', error);
       }
     );

@@ -19,4 +19,7 @@
     <input type="number" [(ngModel)]="newExpense.amount" required />
   </label>
   <button (click)="addExpense()" [disabled]="!isFormValid()">Add Expense</button>
+  <label *ngIf="successMessage" class="success-message">
+  {{ successMessage }}
+  </label>
 </div>
